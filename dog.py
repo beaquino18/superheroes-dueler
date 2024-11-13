@@ -6,7 +6,11 @@ class Dog:
         
     def bark(self):
         print("Woof!")
+        
+    def sits(self):
+        return "sit"
+        
+    def roll_over(self):
+        return "roll over"
 
-my_dog = Dog("Rex", "Superdog")
-my_dog.bark()
 
