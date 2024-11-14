@@ -57,24 +57,55 @@ class Hero:
         
         self.current_health -= total_damage
     
+    #Return true or false depending on whether the hero is alive or not
     def is_alive(self):
-        pass
+        if self.current_health <= 0:
+            return False
+        
+        return True
     
     #Current Hero will take turns fighting the opponent hero passed in
-    # TODO: Stretch goal - include health as a determine of winner
     def fight(self, opponent: 'Hero'):
-        hero_fight = [self, opponent]
-        winner = choice(hero_fight) 
-        loser = opponent if winner == self else self
-        print(f"{winner} defeats {loser}!")
+        if len(self.abilities) == 0 or len(opponent.abilities) == 0:
+            print("Draw")
+            return
+            
+        fighting = True    
+        while fighting:
+            self.take_damage(opponent.attack())
+            opponent.take_damage(self.attack())
+            
+            if opponent.current_health <= 0:
+                print(f"{self.name} won")
+                break
+            elif self.current_health <= 0:
+                print(f"{opponent.name} won")
+                break
+
+            fighting = False
+    
+    #use while loop
+    #take into account the possibility that both heroes may not have abilities and
+    #   therefore will do no damage
+    #   use if statement and check to see if at least one hero has an ability.
+    #   if no abilities exist, print out "Draw"
+    # When a hero wins, print "HEroName won"
+    
+    # calculate all hero attacks, and then opponent take damage
 
 
 if __name__ == "__main__":
     # If you run this file from the terminal
-    # this block of code is executed.
+    # this block is executed.
 
-    hero = Hero("Grace Hopper", 200)
-    shield = Armor("Shield", 70)
-    hero.add_armor(shield)
-    hero.take_damage(10)
-    print(hero.current_health)
+    hero1 = Hero("Wonder Woman")
+    hero2 = Hero("Dumbledore")
+    ability1 = Ability("Super Speed", 300)
+    ability2 = Ability("Super Eyes", 130)
+    ability3 = Ability("Wizard Wand", 80)
+    ability4 = Ability("Wizard Beard", 20)
+    hero1.add_ability(ability1)
+    hero1.add_ability(ability2)
+    hero2.add_ability(ability3)
+    hero2.add_ability(ability4)
+    hero1.fight(hero2)
