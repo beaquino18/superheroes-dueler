@@ -1,6 +1,7 @@
 from random import choice
 from armor import Armor
 from ability import Ability
+from weapon import Weapon
 
 # Hero class
 class Hero:
@@ -16,12 +17,15 @@ class Hero:
         # Meaning, no damage taken yet
         self.current_health = starting_health
     
-    
     def add_ability(self, ability: Ability):
         self.abilities.append(ability)
     
     def add_armor(self, armor: Armor):
         self.armors.append(armor)
+        
+    # Add weapon to self.abilities    
+    def add_weapon(self, weapon: Weapon):
+        self.abilities.append(weapon)
         
     #Calculate the total damage from all ability attacks
     def attack(self):
@@ -83,29 +87,12 @@ class Hero:
                 break
 
             fighting = False
-    
-    #use while loop
-    #take into account the possibility that both heroes may not have abilities and
-    #   therefore will do no damage
-    #   use if statement and check to see if at least one hero has an ability.
-    #   if no abilities exist, print out "Draw"
-    # When a hero wins, print "HEroName won"
-    
-    # calculate all hero attacks, and then opponent take damage
 
 
 if __name__ == "__main__":
     # If you run this file from the terminal
     # this block is executed.
-
-    hero1 = Hero("Wonder Woman")
-    hero2 = Hero("Dumbledore")
-    ability1 = Ability("Super Speed", 300)
-    ability2 = Ability("Super Eyes", 130)
-    ability3 = Ability("Wizard Wand", 80)
-    ability4 = Ability("Wizard Beard", 20)
-    hero1.add_ability(ability1)
-    hero1.add_ability(ability2)
-    hero2.add_ability(ability3)
-    hero2.add_ability(ability4)
-    hero1.fight(hero2)
+    hero = Hero("Wonder Woman")
+    weapon = Weapon("Lasso of Truth", 90)
+    hero.add_weapon(weapon)
+    print(hero.attack())
