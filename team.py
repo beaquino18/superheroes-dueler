@@ -67,7 +67,7 @@ class Team():
             if not opponent_choice.is_alive():
                 living_opponents.remove(opponent_choice)
             
-        # self.stats()
-        # other_team.stats()
+        self.stats()
+        other_team.stats()
 
 
