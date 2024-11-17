@@ -6,16 +6,13 @@ from weapon import Weapon
 # Hero class
 class Hero:
     def __init__(self, name: str, starting_health: int = 100):
-        # abilities and armors don't have starting values,
-        # and are set to empty lists on initialization
         self.abilities = list()
         self.armors = list()
         self.name = name
-        #Starting health of our hero, which is 100
         self.starting_health = starting_health
-        # Current health is always the same as their starting health when new hero is created
-        # Meaning, no damage taken yet
         self.current_health = starting_health
+        self.deaths = 0
+        self.kills = 0
     
     def add_ability(self, ability: Ability):
         self.abilities.append(ability)
@@ -27,6 +24,14 @@ class Hero:
     def add_weapon(self, weapon: Weapon):
         self.abilities.append(weapon)
         
+    # Update self.kills by num_kills amount
+    def add_kill(self, num_kills):
+        self.kills += num_kills
+    
+    #Update deaths with num_deaths
+    def add_death(self, num_deaths):
+        self.deaths += num_deaths
+        
     #Calculate the total damage from all ability attacks
     def attack(self):
         total_damage = 0
@@ -35,7 +40,7 @@ class Hero:
         return total_damage
     
     #Calculate the total block amount from all armor blocks
-    def defend(self, incoming_damage: int):
+    def defend(self):
         #Check if hero is dead (0 health)
         if self.current_health <= 0:
             return 0
@@ -74,19 +79,22 @@ class Hero:
             print("Draw")
             return
             
-        fighting = True    
-        while fighting:
+        while self.is_alive() and opponent.is_alive():
             self.take_damage(opponent.attack())
             opponent.take_damage(self.attack())
             
-            if opponent.current_health <= 0:
+            if not opponent.is_alive():
+                self.add_kill(1)
+                opponent.add_death(1)
                 print(f"{self.name} won")
-                break
-            elif self.current_health <= 0:
+                return
+            
+            if not self.is_alive():
+                opponent.add_kill(1)
+                self.add_death(1)
                 print(f"{opponent.name} won")
-                break
+                return
 
-            fighting = False
 
 
 if __name__ == "__main__":
@@ -96,3 +104,4 @@ if __name__ == "__main__":
     weapon = Weapon("Lasso of Truth", 90)
     hero.add_weapon(weapon)
     print(hero.attack())
+
