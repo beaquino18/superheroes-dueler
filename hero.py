@@ -40,7 +40,7 @@ class Hero:
         return total_damage
     
     #Calculate the total block amount from all armor blocks
-    def defend(self):
+    def defend(self, damage):
         #Check if hero is dead (0 health)
         if self.current_health <= 0:
             return 0

@@ -18,6 +18,7 @@ class Team():
             if hero.name == name:
                 self.heroes.remove(hero)
                 foundHero = True
+                break
             
         if not foundHero:
             return 0
@@ -33,7 +34,7 @@ class Team():
             if hero.deaths == 0:
                 kd = hero.kills
             else:
-                kd = hero.kills / self.deaths
+                kd = hero.kills / hero.deaths
             
             print(f"{hero.name} Kill/Deaths:{kd}")
             
